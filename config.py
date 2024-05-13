@@ -22,6 +22,9 @@ if torch.cuda.is_available():
 else:
     infer_device = "cpu"
 
+if torch.backends.mps.is_available():
+    infer_device = "mps"
+
 webui_port_main = 9874
 webui_port_uvr5 = 9873
 webui_port_infer_tts = 9872
@@ -41,7 +44,7 @@ if infer_device == "cuda":
     ):
         is_half=False
 
-if(infer_device=="cpu"):is_half=False
+if(infer_device=="cpu" || infer_device=="mps"):is_half=False
 
 class Config:
     def __init__(self):
